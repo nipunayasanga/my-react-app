@@ -64,15 +64,20 @@ const Login = () => {
 
               <div className="w-full flex flex-row justify-between mt-3">
                 <h5 className="text-[13px]">
-                  Don't have and an account?{" "}
+                  Don't have and an account? {" "}
                   <span className=" text-[#6c4cb5]">
-                    <Link to="/Registration">Register Now</Link>
+
+                    <Link to="/Registration" >
+                    Register Now
+                    </Link>
                   </span>
                 </h5>
 
                 <h5 className="text-[13px]">
-                  <span className=" text-[#6c4cb5]">Forget Password?</span>
-                </h5>
+                <span className=" text-[#6c4cb5]">
+                    Forget Password?
+                  </span>
+                  </h5>
               </div>
             </Form>
           )}
