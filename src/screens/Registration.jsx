@@ -9,8 +9,8 @@ const Registration = () => {
   const navigate = useNavigate();
 
   const handleRegistration = () => {
-    // Handle registration logic here
-    navigate("/Login"); // Redirect to login page after successful registration
+    // Handle registration logic 
+    navigate("/Login"); 
   };
 
   const RegistrationSchema = Yup.object().shape({
@@ -109,7 +109,7 @@ const Registration = () => {
                 <h5 className="text-[13px]">
                   Already have an account?{" "}
                   <span className=" text-[#6c4cb5]">
-                    <Link to="/Login">Login Now</Link>
+                    <Link to="/login">Login Now</Link>
                   </span>
                 </h5>
               </div>
