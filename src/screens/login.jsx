@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton";
 import InputField from "../components/InputField";
+import axios from "axios";
 
 const Login = () => {
 
@@ -27,9 +28,38 @@ const Login = () => {
 
 
 
-  const handleLogin = (values) => {
-    console.log('Login Button Clicked');
-    console.log(values);
+  const handleLogin = async(values) => {
+    try {
+
+      const response = await axios.post('http://localhost:3001/userLogin',values)
+
+      const token = response.data.token;
+      console.log('Auth Token', token);
+
+      localStorage.setItem('token', token);
+
+      //////////time-out //////////////////
+      setTimeout (() => {
+        localStorage.removeItem('token');
+
+      }, 10* 60 * 1000) // 10 min in miliseconds
+
+      navigate('/Home');
+
+
+      
+    } catch (error) {
+      
+      if(error.response.status === 401){
+        
+        if(error.response.data.error === 'User Not Found'){
+          console.log('User Not Found');
+        }
+      }
+
+
+
+    }
   }
 
 
@@ -41,6 +71,9 @@ const Login = () => {
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold">Welcome to the Login Page</h2>
         </div>
+
+
+
 
         <Formik
 
