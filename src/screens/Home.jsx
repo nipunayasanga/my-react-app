@@ -1,115 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import { EmailOutlined, LocalPhoneOutlined } from "@mui/icons-material";
+import { faCameraAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link, useNavigate } from "react-router-dom";
 import PrimaryButton from "../components/PrimaryButton";
 import InputField from "../components/InputField";
+// Import your profile image
+import profileImage from "../Assets/Images/profile.jpg";
 
-const Home = () => {
-  // Mock user data
-  const [userData, setUserData] = useState({
-    username: "Nipuna",
-    nickname: "NY",
-    password: "Nipuna@96",
-    contact: "0712418222",
-  });
-
-  // State for editable fields
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedData, setEditedData] = useState({ ...userData });
-
-  // Handle input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setEditedData({ ...editedData, [name]: value });
-  };
-
-  // Handle edit mode toggle
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
-    setEditedData({ ...userData }); // Reset editedData to userData when switching to edit mode
-  };
-
-  // Handle save changes
-  const saveChanges = () => {
-    setUserData({ ...editedData });
-    setIsEditing(false);
-  };
-
+function Home() {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-full lg:w-2/3 md:w-3/4">
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          {/* Profile Header */}
-          <div className="flex items-center mb-4">
-            <img
-              src="/src/img/profile-photo.jpg"
-              alt="Profile"
-              className="rounded-full w-24 h-24 mr-4"
-            />
-            <div>
-              <h2 className="text-2xl font-semibold">{userData.username}</h2>
-              <p className="text-gray-600">@{userData.nickname}</p>
-            </div>
+    <div className="w-full h-screen flex flex-col justify-center items-center p-2 space-y-2">
+      <div className="w-full md:w-[80%] lg:w-[60%] flex justify-start items-center">
+        <span className="text-[14px]">Back</span>
+      </div>
+
+      <div className="w-full md:w-[80%] lg:w-[60%] md:p-5 flex flex-col space-y-3 border-[1px] rounded-md border-[#565656] border-opacity-25">
+        <div className="w-full bg-slate-900 rounded-sm p-2 md:p-5 flex flex-col justify-center items-center space-y-3 relative">
+          <div className="profile-wrapper w-[96px] h-[96px] md:w-[128px] md:h-[128px] bg-slate-200 rounded-full">
+            {/* Display the profile image */}
+            <img src={profileImage} alt="Profile" className="w-full h-full rounded-full object-cover" />
           </div>
-          {/* Profile Details */}
-          <div className="mb-6">
-            <h3 className="text-lg font-semibold mb-2">Profile Details</h3>
-            <p>
-              <strong>Password:</strong>{" "}
-              {isEditing ? "********" : "******"} {/* Mask password when editing */}
-              <br />
-              <strong>Contact:</strong>{" "}
-              {isEditing ? ( // Render input field if in edit mode
-                <InputField
-                  name="contact"
-                  type="text"
-                  value={editedData.contact}
-                  handleChange={handleInputChange}
-                />
-              ) : (
-                userData.contact // Otherwise render plain text
-              )}
-            </p>
+        </div>
+        <div className="w-full p-2 md:p-5 flex flex-col">
+          <div className="flex flex-row space-x-3 justify-start items-center">
+            {/* Display phone icon */}
+            <LocalPhoneOutlined className="font-semibold text-[#838383]" />
+            <h2 className="text-[#838383]">my contact</h2>
           </div>
-          {/* Editable Fields */}
-          {isEditing && (
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold mb-2">Edit Profile</h3>
-              <InputField
-                label="Username"
-                name="username"
-                type="text"
-                value={editedData.username}
-                handleChange={handleInputChange}
-              />
-              <InputField
-                label="Password"
-                name="password"
-                type="password"
-                value={editedData.password}
-                handleChange={handleInputChange}
-              />
-              <PrimaryButton
-                label="Save Changes"
-                bgcolor="#1877f2"
-                textcolor="#ffffff"
-                onClick={saveChanges}
-              />
-            </div>
-          )}
-          {/* Edit Button */}
-          <div className="text-right">
-            {!isEditing && (
-              <PrimaryButton
-                lable="Edit Profile"
-                bgcolor="#1877f2"
-                textcolor="#ffffff"
-                onClick={toggleEdit}
-              />
-            )}
+          <div className="flex flex-row space-x-3 justify-start items-center">
+            {/* Display email icon */}
+            <EmailOutlined className="font-semibold text-[#838383]" />
+            <h2 className="text-[#838383]">email</h2>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default Home;

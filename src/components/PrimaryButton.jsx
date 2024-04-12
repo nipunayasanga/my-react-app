@@ -1,6 +1,6 @@
 import React from "react";
 
-function PrimaryButton( {lable , eventname , bgcolor , textcolor , type}) {
+function PrimaryButton( {label , eventname , bgcolor , textcolor , type}) {
 
     const buttonStyle = {
         backgroundColor:bgcolor,
@@ -11,11 +11,11 @@ function PrimaryButton( {lable , eventname , bgcolor , textcolor , type}) {
     <div>
       <button
         type="submit"
-        className="w-full rounded-md h-[44px] mt-3 "
+        className="w-[300px] rounded-md h-[44px] mt-3 "
         onClick={eventname}
         style={buttonStyle}
       >
-    {lable}
+    {label}
       </button>
     </div>
   )

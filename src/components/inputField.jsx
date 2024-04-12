@@ -1,24 +1,32 @@
 import React from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 
-const InputField = ({ label, name, type, value, handleChange }) => {
+
+function InputField ({ label , name , type , placeholder , values , handleChange })  {
+
+
+
   return (
-    <div className="form-field-container flex flex-col sm:mt-5 mt-2 w-full space-y">
+    <div className="form-field-container flex flex-col sm:mt-5 mt-2 w-full space-y-2">
       <div className="form-field-label sm:flex justify-between w-full hidden">
-        <label
-          htmlFor={name}
-          className="text-[#1a1a1a] text-[12px] uppercase font-semibold"
-        >
-          {label}
-        </label>
-      </div>
-      <div className="form-field-input-container w-full rounded-[6px] bg-[#ffffff] border-[1px] border-[#565656] border-opacity-20 flex flex-row justify-items-center">
-        <input
-          type={type}
-          id={name}
+
+        <span className ="text-[#lalala] text-[12px] uppercase font-semibold " >          
+        {label}
+        </span>
+          <ErrorMessage
           name={name}
-          value={value}
+          component="span"
+          className="text-red-600 text-[12px]"
+      />
+      </div>
+
+      <div className="form-field-input-container w-full rounded-[6px] h-[38px] bg-[#ffffff] border-[1px] border-[#565656] border-opacity-20 flex flex-row justify-items-center">
+        <Field
+          type={type}
+          name={name}
+          value={values[name]}
           onChange={handleChange}
-          placeholder={label}
+          placeholder={placeholder}
           required
           className="w-full h-full p-2 bg-transparent outline-none text-[12px] form-field-input"
         />
