@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowBack, EmailOutlined, LocalPhoneOutlined, CameraAltSharp, EditNote} from "@mui/icons-material";
 import { faCameraAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,15 +6,59 @@ import PrimaryButton from "../components/PrimaryButton";
 import InputField from "../components/InputField";
 // Import your profile image
 import profileImage from "../Assets/Images/profile.jpg";
+import axios from "axios";
 
 function Home() {
+
+  const navigate = useNavigate();
+  const [userData, setUserData] = useState(null);
+
+  const getUserDetails = async() => {
+
+    try {
+
+      const token = localStorage.getItem("token");
+      if(!token){
+        console.log('Token Not found');
+      }
+      
+
+      if(token){
+        const response = await axios.get('http://localhost:3001/loggedUserBio',{
+          headers: {'Authorization': `Bearer ${token}`
+        }
+      });
+        setUserData(response.data);
+        console.log(userData);
+
+      }
+
+
+    } catch (error) {
+        console.error('Error fetching user data' , error);      
+    };
+
+  }
+
+  useEffect(() => {
+
+    
+    getUserDetails();
+
+  }, []);
+
+
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center p-2 space-y-2">
       <div className="w-full md:w-[80%] lg:w-[60%] flex justify-start items-center">
-        <span className="text-[14px]"> <ArrowBack fontSize="small" /> Back</span>
+        <span className="text-[14px]"> <ArrowBack fontSize="small" /> Back
+        </span>
       </div>
 
-      <div className="w-full md:w-[80%] lg:w-[60%] md:p-5 flex flex-col space-y-3 border-[1px] rounded-md border-[#565656] border-opacity-25">
+
+{ userData ? (
+  <>
+        <div className="w-full md:w-[80%] lg:w-[60%] md:p-5 flex flex-col space-y-3 border-[1px] rounded-md border-[#565656] border-opacity-25">
         <div className="w-full bg-slate-900 rounded-sm p-2 md:p-5 flex flex-col justify-center items-center space-y-3 relative">
           <div className="profile-wrapper w-[96px] h-[96px] md:w-[128px] md:h-[128px] bg-slate-200 rounded-full relative">
             {/* Display the profile image */}
@@ -40,8 +84,7 @@ function Home() {
 
             <div className="justify-center items-center mx-auto ">
               <h2 className="text-white font-semibold text[16px] uppercase">
-                {" "}
-                my name is{" "}
+                {userData.firstName} {userData.lastName}
                 </h2>
              </div>
 
@@ -65,6 +108,17 @@ function Home() {
           </div>
         </div>
       </div>
+  
+  </>
+) : (
+
+  <>
+  <p>Loding...</p>
+
+  </>
+
+  )}
+
     </div>
   );
 }

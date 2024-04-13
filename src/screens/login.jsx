@@ -38,9 +38,14 @@ const Login = () => {
       navigate('/Home');
     } catch (error) {
       if (error.response.status === 401) {
-        if (error.response.data.error === 'User Not Found') {
+        
+        if (error.response.data.error === 'User Not Found')
+        
+        {
           setLoginError('User Not Found. Please Check Your Credentials');
-        } else if (error.response.data.error === 'Invalid Password') {
+        } else if (error.response.data.error === 'Invalid Password') 
+        
+        {
           setLoginError('Invalid Password. Please Check Your Credentials');
         }
       } else {
