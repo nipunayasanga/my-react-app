@@ -115,6 +115,31 @@ function Home() {
     setPopupOpenRelation(false);
   };
 
+  const handleDeleteRelation = async (relationId) => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        throw new Error("Token Not found");
+      }
+  
+      // Send DELETE request to delete the relation by relationId
+      await axios.delete(`http://localhost:3001/deleteRelation/${relationId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Corrected template string for token
+        },
+      });
+  
+      // Update relations data in the local state by filtering out the deleted relation
+      setRelationsData((prevRelations) =>
+        prevRelations.filter((relation) => relation.id !== relationId)
+      );
+    } catch (error) {
+      console.log("Error deleting data", error);
+    }
+  };
+  
+
+
   return (
     <div className="w-full h-screen flex flex-col items-center p-2 space-y-2">
       {/* Header section */}
@@ -213,6 +238,7 @@ function Home() {
     
     key={relation.id}
     relationsData={relation}
+    onDelete={() => handleDeleteRelation(relation.id)}
   
     />
   ))}
