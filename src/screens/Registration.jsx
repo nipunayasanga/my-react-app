@@ -35,6 +35,9 @@ const Registration = () => {
       .max(10, "Only 10 digits")
       .min(10, "Minimum 10 digits")
       .required("Required"),
+
+
+
     userID: Yup.string()
       .matches(/[0-9]/, "Must contain a digit")
       .matches(/[a-z]/, "UserID requires a lowercase letter")
